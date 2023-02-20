@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import '../Model/ChatModel.dart';
 
 class MessageController with ChangeNotifier {
+  var tableName;
+
   final dbHandler= DatabaseHandler("Db1");
   dynamic loadMessages() async {
     await  dbHandler.retrieveUsers();
