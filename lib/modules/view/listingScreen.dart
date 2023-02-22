@@ -42,8 +42,6 @@ class _ListingScreenState extends State<ListingScreen> {
             return SizedBox(height: 3,);
            },),
         )),
-       
-      
     );
   }
 }

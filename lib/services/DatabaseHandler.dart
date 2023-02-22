@@ -67,7 +67,6 @@ Future<List<ChatModel>> retrieveUsers(var tableName) async {
     List<ChatModel> result=queryResult.map((e) => ChatModel.fromMap(e)).toList();
     print("GAurav ${result.last.toMap()}");
     return ChatModel(message: result.last.message, time: result.last.time);
-
   }
 
 }

@@ -1,8 +1,11 @@
 import 'package:day1_task/modules/controller/MessagingController.dart';
-import 'package:day1_task/modules/view/listingScreen.dart';
+import 'package:day1_task/modules/controller/ProductsController.dart';
+import 'package:day1_task/modules/controller/SignupController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+
+import 'modules/view/Signup.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -17,15 +20,19 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context , child) {
-        return ChangeNotifierProvider(
-          create:  (context)=>MessageController(),
+        return MultiProvider(
+          providers:[
+            ChangeNotifierProvider(create:(_)=>MessageController()),
+            ChangeNotifierProvider(create:(_)=>ProductController()),
+            ChangeNotifierProvider(create:(_)=>SignupController()),
+          ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home:   ListingScreen(),
+          home:   SignupScreen(),
            ),
         );
       }
