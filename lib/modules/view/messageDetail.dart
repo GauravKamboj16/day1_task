@@ -1,13 +1,12 @@
-import 'package:day1_task/modules/Constants/AppColors.dart';
-import 'package:day1_task/modules/Model/ChatModel.dart';
+import 'package:day1_task/Constants/AppColors.dart';
+import 'package:day1_task/Model/ChatModel.dart';
 import 'package:day1_task/modules/controller/MessagingController.dart';
-import 'package:day1_task/modules/services/DatabaseHandler.dart';
+import 'package:day1_task/services/DatabaseHandler.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
- 
-
-import '../Widgets/ChatItem.dart';
+import '../../Widgets/ChatItem.dart';
 
 class MessageDetail extends StatefulWidget {
   final String?  index;
@@ -19,6 +18,7 @@ class MessageDetail extends StatefulWidget {
 
 class _MessageDetailState extends State<MessageDetail> {
   final messageController=TextEditingController();
+ 
  // final dbHandler= DatabaseHandler("Db1");
 
   late DatabaseHandler handler;
@@ -28,8 +28,9 @@ class _MessageDetailState extends State<MessageDetail> {
   void initState() {
     super.initState();
      controller2=Provider.of<MessageController>(context,listen: false);
+     controller2.tableName="group${this.widget.index}";
     controller2.dbHandler.initializeDB();
-    handler=DatabaseHandler("ChatRoom+${this.widget.index}");
+    handler=DatabaseHandler();
     controller2.loadMessages();
      
   
@@ -44,11 +45,11 @@ class _MessageDetailState extends State<MessageDetail> {
       backgroundColor: AppColors.headingBack,
       ),
        body: Padding(
-         padding: const EdgeInsets.all(.0),
+         padding: const EdgeInsets.all(8.0),
          child: Consumer<MessageController>(
           builder: (context, value, child) {
           return FutureBuilder(
-             future: controller2.dbHandler.retrieveUsers(),
+             future: controller2.dbHandler.retrieveUsers("group${this.widget.index}"),
             builder: (BuildContext context, AsyncSnapshot<List<ChatModel>> snapshot) {
               if (snapshot.hasData) {
                 return Column(
@@ -73,7 +74,16 @@ class _MessageDetailState extends State<MessageDetail> {
                               },
                               
                               
-                              child:ChatItem(item: item)
+                              child:GestureDetector(
+                                 onLongPress: () {
+                                  ChatModel model=ChatModel(id:snapshot.data![index].id!,message: "Edited", time: "Time");
+                                //   print("The index is $index, model is ${model.message}");
+                                 // value.editMessage(snapshot, index, model);
+                              
+                                 showDialog(context: context, builder: (BuildContext context) => showEditDialog(snapshot.data!.elementAt(index).message,
+                                 snapshot,index));
+                                 },
+                                child: ChatItem(item: item))
                             );
                           }, separatorBuilder: (BuildContext context, int index) { 
                             return SizedBox(height: 12,);
@@ -122,5 +132,68 @@ class _MessageDetailState extends State<MessageDetail> {
      
 
     );
+  }
+
+
+Widget showEditDialog(String mssg,AsyncSnapshot snapshot, int index,){
+  final mssgController=TextEditingController(text: mssg);
+      return Consumer<MessageController>(
+        builder: (context, value, child) {
+       return Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
+        child: Container(
+          height: 300.0,
+          width: 300.0,
+         
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding:  EdgeInsets.all(15.0),
+            child: mTextField(mssgController)
+          ),
+          
+          Padding(padding: EdgeInsets.only(top: 50.0)),
+          TextButton(onPressed: () async {
+            DateTime now = DateTime.now();
+            String time = DateFormat('kk:mm').format(now);
+            ChatModel model=await ChatModel(id:snapshot.data.elementAt(index).id,message: mssgController.text, time: time);
+            value.editMessage(snapshot, index, model);
+            Navigator.of(context).pop();
+      
+          },
+              child: Text('Update!', style: TextStyle(color: Colors.purple, fontSize: 18.0),))
+        ],
+          ),
+        ),
+      );
+         
+        },
+  
+      );
+  }
+
+
+  Widget mTextField(TextEditingController mCont){
+    return   TextField(
+                    
+                controller: mCont,
+                style: GoogleFonts.lato(color: AppColors.whiteColor,fontSize: 14),
+                decoration: InputDecoration(
+                  hintText: 'Type your message',
+                  hintStyle: TextStyle(color: AppColors.whiteColor),
+                  fillColor: AppColors.textFieldColor,
+                  filled: true,
+                 
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: AppColors.iconBackground)
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: AppColors.iconBackground)
+                  ),
+                ),
+               );
   }
 }

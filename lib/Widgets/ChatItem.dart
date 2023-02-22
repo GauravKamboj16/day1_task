@@ -1,5 +1,6 @@
-import 'package:day1_task/modules/Constants/AppColors.dart';
-import 'package:day1_task/modules/Model/ChatModel.dart';
+import 'package:day1_task/Constants/AppColors.dart';
+import 'package:day1_task/Model/ChatModel.dart';
+import 'package:day1_task/services/DatabaseHandler.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +20,7 @@ class ChatItem extends StatelessWidget {
           bottomRight: Radius.circular(12),
           
          )
-
+    
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

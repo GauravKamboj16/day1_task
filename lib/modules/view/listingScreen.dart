@@ -1,5 +1,6 @@
-import 'package:day1_task/modules/Constants/AppColors.dart';
-import 'package:day1_task/modules/Widgets/ChatRoomItem.dart';
+import 'package:day1_task/Constants/AppColors.dart';
+import 'package:day1_task/Widgets/ChatRoomItem.dart';
+import 'package:day1_task/services/DatabaseHandler.dart';
 import 'package:day1_task/modules/view/messageDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -14,14 +15,7 @@ class ListingScreen extends StatefulWidget {
 }
 
 class _ListingScreenState extends State<ListingScreen> {
-
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-  }
+   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +26,7 @@ class _ListingScreenState extends State<ListingScreen> {
       ),
 
       body: SafeArea(
-        child: Expanded(
+        child:  Expanded(
           flex: 1,
           child: ListView.separated(
             itemCount: 4,
@@ -40,10 +34,10 @@ class _ListingScreenState extends State<ListingScreen> {
             return GestureDetector(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return MessageDetail(index: index.toString(),);
+                  return MessageDetail(index: index.toString());
                 }));
               },
-              child: ItemDesign(index: index,));
+              child:ItemDesign(index:index,));
           }, separatorBuilder: (BuildContext context, int index) { 
             return SizedBox(height: 3,);
            },),
