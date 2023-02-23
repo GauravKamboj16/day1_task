@@ -23,7 +23,7 @@ final descController=TextEditingController();
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         title: const Text("Create TODO"),
-        backgroundColor: AppColors.textThemeColor,
+        backgroundColor: AppColors.redColor,
       ),
 
       body: SingleChildScrollView(
@@ -89,19 +89,25 @@ final descController=TextEditingController();
                 GestureDetector(
                   onTap: () async {
 
-                    controller.createNote(titleController.text.toString()
+                    if(titleController.text == "" || titleController.text ==""){
+                      
+                    }else{
+                      controller.createNote(titleController.text.toString()
                     , descController.text.toString(), context);
                     
+                    }
+
+               
                   
 
                   },
                   child: Container(
                     height:55,
                     decoration: BoxDecoration(
-                      color: AppColors.textThemeColor,
+                      color: AppColors.redColor,
                       borderRadius: BorderRadius.circular(14),
                       border: Border.all(
-                        color: AppColors.redColor,
+                        color: AppColors.whiteColor,
                         width: 2
                       )
                       

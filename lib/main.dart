@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_tutorial/modules/controller/products_controller.dart';
+import 'package:hive_tutorial/modules/view/Products_screen.dart';
 import 'package:hive_tutorial/modules/view/create_note.dart';
+import 'package:hive_tutorial/modules/view/home_screen.dart';
 import 'package:hive_tutorial/modules/view/notes_list.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -26,13 +29,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create:(_)=>NotesController()),
+        ChangeNotifierProvider(create: (_)=>ProductController())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const NotesList(),
+        home: const HomeScreen(),
       ),
     );
   }

@@ -26,13 +26,15 @@ class _NotesListState extends State<NotesList> {
       backgroundColor: AppColors.backgroundColor,
        appBar: AppBar(
         title: const Text("Create TODO"),
-        backgroundColor: AppColors.textThemeColor,
+        backgroundColor: AppColors.redColor,
       ),
       body: ValueListenableBuilder<Box<NoteModel>>(
         valueListenable: Boxes.getData().listenable(),
          builder: (context, box, child) {
           var data=box.values.toList().cast<NoteModel>();
-          return ListView.builder(
+          return data.length==0?
+           Center(child: Text("No notes add now",style: GoogleFonts.notoSans (color: Colors.white,fontSize: 25),))
+          :ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
             return Card(
@@ -87,28 +89,91 @@ Future<void> showEditDialogue(NoteModel note,String title,String desc){
     return 
     showDialog(context: context,
      builder: (context) {
-       return Card( child:
+       return Card( 
+        color: AppColors.backgroundColor,
+        child:
        Column(
         children: [
+          SizedBox(height: 23,),
           TextField(
-            controller: titleController,
-            autofocus: true,
-          ),
-          TextField(
-            controller: descController,
-            autofocus: true,
-            
-
-          ),
-          TextButton(onPressed: (){
+                  controller: titleController,
+                  style: GoogleFonts.poppins(color:Colors.white,fontSize: 16,fontWeight:FontWeight.w500),
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    label: Text('Title'),
+                    labelStyle: GoogleFonts.lato(color: AppColors.whiteColor,),
+                    fillColor: AppColors.cardColor,
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      borderSide: const BorderSide(
+                        color: AppColors.redColor,
+                        width: 2,
+                      )
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      borderSide: const BorderSide(
+                        color: AppColors.redColor,
+                        width: 2,
+                      )
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15,),
+                TextField(
+                  controller: descController,
+                  style: GoogleFonts.poppins(color:Colors.white,fontSize: 12,fontWeight:FontWeight.w400),
+                  maxLines: 8,
+                  decoration: InputDecoration(
+                    label: const Text('Description'),
+                    labelStyle: GoogleFonts.lato(color: AppColors.whiteColor,),
+                    fillColor: AppColors.cardColor,
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      borderSide: const BorderSide(
+                        color: AppColors.redColor,
+                        width: 2,
+                      )
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      borderSide: const BorderSide(
+                        color: AppColors.redColor,
+                        width: 2,
+                      )
+                    ),
+                  ),
+                ),
+                SizedBox(height: 25,),
+                 GestureDetector(
+                 onTap: (){
             // controller.updateNote(note, title, desc, context);
-            controller.updateNote(note, titleController.text.toString(), descController.text.toString(), context);
+               controller.updateNote(note, titleController.text.toString(), descController.text.toString(), context);
              
             
           
 
 
-          }, child: Text("update"))
+          },
+                   child: Container(
+                      height:55,
+                      decoration: BoxDecoration(
+                        color: AppColors.redColor,
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: AppColors.whiteColor,
+                          width: 2
+                        )
+                        
+                      ),
+                      child: Center(
+                        child: Text('update',style: GoogleFonts.lato(color:Colors.white,fontSize: 22,fontWeight:FontWeight.w600),),
+                      ),
+                    ),
+                 ),
+          
 
         ],
        )
