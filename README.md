@@ -1,10 +1,36 @@
-# hive_tutorial
+# Todo App
 
-A new Flutter project.
+A todo application using hive as database
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Screen1(home_screen.dart)
+   This screen has two card buttons,navigating to their respective names
+
+Screen2(notes_list.dart)
+    Screen Loads list of todo's(if available).User can edit or delete any todo as per requirement.
+    Also user can add new todo by clicking over add button in bottom right corner which will navigate Next
+    screen3(create_note.dart) for creating new todo.
+
+    #Here all the functionality is being controlled by provider class notes_controller.dart for creating,updating
+    and deleting any todo
+
+Screen4(products_screen.dart)
+    This screen loads list of products fetched from an Api.The list is hown in an gridview.
+    User can add products to cart and can navigate to Screen5(products_cart.dart)
+
+    #Here all the functionality is being controlled by provider class products_controller.dart for fetching products,
+    adding them to cart and updating total price.
+
+
+Other Folders
+
+    widgets  => This folder consist of several reusable widgets.
+    model    => This consist of several model classes.
+    constanr => This consist of classes like appColor with global defined color varialbles  
+
+    
+          
 
 A few resources to get you started if this is your first Flutter project:
 

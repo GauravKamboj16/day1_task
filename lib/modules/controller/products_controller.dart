@@ -9,9 +9,8 @@ class ProductController with ChangeNotifier {
   double price=0.00;
   List<Product> productList = [];
   final networkUtil = NetworkUtil();
-    
   List<Product> _favList = [];
-  List<Product> get favList=>_favList;  
+  List<Product> get favList=>_favList;
 
   void getProducts() async {
     

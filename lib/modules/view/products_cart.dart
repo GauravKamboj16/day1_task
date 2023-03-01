@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_tutorial/constant/app_colors.dart';
 import 'package:hive_tutorial/modules/controller/products_controller.dart';
@@ -96,7 +94,7 @@ class _CartScreenState extends State<CartScreen> {
                 children: [
                   Text("Your total amount",style: TextStyle(color: Colors.white70),),
                   SizedBox(height: 4,),
-                  Text(controller1.price.toString(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600),)
+                  Text(controller1.price.toStringAsFixed(2),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600),)
                 ],
               ),
               Spacer(),
