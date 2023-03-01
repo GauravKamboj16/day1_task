@@ -1,3 +1,8 @@
+/*
+Developer -Gaurav Kamboj
+Provider class managing dark and light theme with Provider state Management
+*/
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

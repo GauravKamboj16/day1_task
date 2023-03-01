@@ -24,13 +24,12 @@ Screen4(products_screen.dart)
 
 
 Other Folders
-
     widgets  => This folder consist of several reusable widgets.
     model    => This consist of several model classes.
     constanr => This consist of classes like appColor with global defined color varialbles  
 
-    
-          
+
+
 
 A few resources to get you started if this is your first Flutter project:
 

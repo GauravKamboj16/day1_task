@@ -1,7 +1,24 @@
+/*
+Developer- Gaurav Kamboj 
+This service class manages every task related to Firebase notification
+ *Asking for permision when android version>=13 and always in Ios
+
+ initialising Notification Setting and setting icon for notification
+
+ FirebaseInit() gives us a remoteMesaage we can extract title body from it and 
+ Show Notification
+
+ DeviceToken is required for firebase to send message to device
+
+ Local notification plugin is required for showing notifications 
+
+
+
+*/
+
 import 'dart:math';
 import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService{
@@ -77,7 +94,6 @@ class NotificationService{
          priority: Priority.high,
          ticker: 'ticker'
          );
-
        const DarwinNotificationDetails IOSNotificationDetails=DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,

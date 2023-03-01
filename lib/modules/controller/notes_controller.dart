@@ -1,10 +1,12 @@
+/*
+Developer- Gaurav Kamboj
+Provider class for creating deleting and updating Todo.
+*/
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_tutorial/boxes/boxes.dart';
 import 'package:hive_tutorial/model/note_model.dart';
-
-// 
- 
 
 class NotesController extends ChangeNotifier{
   

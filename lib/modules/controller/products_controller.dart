@@ -1,9 +1,17 @@
-import 'dart:convert';
+ /*
+Developer- Gaurav Kamboj
+  Provider class for fetching products from Api 
+  Managing cart products list (_favList) 
+  Adding & removing products from cart
+  Updating TotalPrice in (price) variable
+
+  function addToCart() simply add product in _favList later working as cart list
+  _favList manages cart products
+*/
 import 'package:flutter/cupertino.dart';
 import 'package:hive_tutorial/services/network_util.dart';
 import '../../model/product.dart';
- 
- 
+
 class ProductController with ChangeNotifier {
   bool isLoading = true;
   double price=0.00;
@@ -71,8 +79,6 @@ updatePrice(List<Product> list){
   } 
   price=pp; 
   notifyListeners();
-
-
 }
   
 }
