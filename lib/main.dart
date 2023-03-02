@@ -2,13 +2,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_tutorial/constant/app_colors.dart';
 import 'package:hive_tutorial/modules/controller/products_controller.dart';
 import 'package:hive_tutorial/modules/controller/theme_controller.dart';
 import 'package:hive_tutorial/modules/view/home_screen.dart';
+import 'package:hive_tutorial/modules/view/splash_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'model/note_model.dart';
 import 'modules/controller/notes_controller.dart';
+ 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,10 +19,8 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(_backgroundNotificationService);
   var directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
-
   Hive.registerAdapter(NoteModelAdapter());
   await Hive.openBox<NoteModel>('notes');
-
   runApp(const MyApp());
 }
 
@@ -46,11 +47,14 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           themeMode: themeChanger.themeMode,
           theme: ThemeData(
-              primarySwatch: Colors.red, brightness: Brightness.light),
+            scaffoldBackgroundColor: Colors.white,
+              primarySwatch: Colors.red,
+               brightness: Brightness.light),
           darkTheme: ThemeData(
+            scaffoldBackgroundColor: AppColors.backgroundColor,
             brightness: Brightness.dark,
           ),
-          home: const HomeScreen(),
+          home: Splash2(),
         );
       }),
     );

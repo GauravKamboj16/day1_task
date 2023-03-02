@@ -1,7 +1,9 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive_tutorial/constant/app_colors.dart';
 import 'package:hive_tutorial/widgets/product_item.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
 import '../controller/products_controller.dart';
@@ -37,9 +39,17 @@ class _ProductsScreenState extends State<ProductsScreen> {
               builder: (context, value, child) {
                 return InkWell(
                    onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return CartScreen();
-                    }));
+                    Navigator.push(
+                  context,
+                  PageTransition(
+                      alignment: Alignment.bottomRight,
+                      curve: Curves.easeInOut,
+                      duration: const Duration(milliseconds: 600),
+                      reverseDuration: const Duration(milliseconds: 600),
+                      type: PageTransitionType.topToBottomJoined,
+                      child: const CartScreen(),
+                      childCurrent: widget),
+                );
                   },
                   child: Center(
                     child: Badge(
@@ -57,11 +67,17 @@ class _ProductsScreenState extends State<ProductsScreen> {
           ],
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Consumer<ProductController>(
               builder: (BuildContext context, value, Widget? child) {
                 return value.isLoading == true
-                    ? const Center(child: CircularProgressIndicator(color: AppColors.redColor,))
+                    ? 
+                    
+                    const Center(child: SpinKitCubeGrid(
+                  color: Colors.red,
+                  size: 50.0,
+                ))
                     : Expanded(
                         child: GridView.builder(
                             itemCount: value.productList.length,
@@ -69,8 +85,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                 const SliverGridDelegateWithMaxCrossAxisExtent(
                                     maxCrossAxisExtent: 200,
                                     childAspectRatio: 3 / 5,
-                                    crossAxisSpacing: 10,
-                                    mainAxisSpacing: 10),
+                                    crossAxisSpacing: 5,
+                                    mainAxisSpacing:5),
                             itemBuilder: (context, index) {
                               return ProductItem(product: value.productList.elementAt(index), controller: value);
                             }));

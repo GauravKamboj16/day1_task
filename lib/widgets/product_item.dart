@@ -1,8 +1,12 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:hive_tutorial/constant/app_colors.dart';
 import 'package:hive_tutorial/model/product.dart';
 import 'package:hive_tutorial/modules/controller/products_controller.dart';
+import 'package:hive_tutorial/modules/view/MusicAnimation.dart';
+import 'package:hive_tutorial/modules/view/product_details.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
@@ -12,7 +16,10 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Product item=this.product;
-    return Card(
+    return OpenContainer(
+      closedBuilder: (context, action) {
+        return  Card(
+      color: AppColors.whiteColor,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -21,12 +28,13 @@ class ProductItem extends StatelessWidget {
             children: [
               Stack(children: [
                 FadeInImage(
-                  placeholder: NetworkImage(
+                  placeholder: const NetworkImage(
                       'https://th.bing.com/th/id/OIP.knDD5nFJTOXO5pi-FHhMkgAAAA?pid=ImgDet&w=183&h=137&c=7&dpr=1.3'),
                   image: NetworkImage(item.image),
                   placeholderErrorBuilder: (context, error, stackTrace) {
-                    return Image.network(
-                        'https://th.bing.com/th/id/OIP.knDD5nFJTOXO5pi-FHhMkgAAAA?pid=ImgDet&w=183&h=137&c=7&dpr=1.3');
+                    return Image.asset('assets/images/product_item.dart');
+                    //  Image.network(
+                    //     'https://th.bing.com/th/id/OIP.knDD5nFJTOXO5pi-FHhMkgAAAA?pid=ImgDet&w=183&h=137&c=7&dpr=1.3');
                   },
                 ),
                 Align(
@@ -62,6 +70,10 @@ class ProductItem extends StatelessWidget {
             ]),
       ),
     );
+      },
+     openBuilder:(context, action) {
+       return ProductDetails(product: item,);
+     },)
     ;
   }
 }

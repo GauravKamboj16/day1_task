@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -17,8 +18,6 @@ class NotesList extends StatefulWidget {
 
 class _NotesListState extends State<NotesList> {
   late NotesController controller;
-   
-
   @override
   Widget build(BuildContext context) {
       controller=Provider.of<NotesController>(context);
@@ -70,17 +69,25 @@ class _NotesListState extends State<NotesList> {
            
          },),
 
-         floatingActionButton: FloatingActionButton(onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context){
-            return CreateNote();
+         floatingActionButton:  OpenContainer(
+           
+          closedColor: Colors.white,
+          transitionDuration: const Duration(milliseconds: 800),
+          closedBuilder:  (context, action) {
+           return Container(
+            height: 55,
+            width: 55,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle
+            ),
 
-          }));
+           child: const Icon(Icons.add,color: Colors.black,size: 33,),);
          },
-         child: const Icon(Icons.add),
-         ),
-
-
-    );
+          openBuilder: (context, action) {
+            return const CreateNote();
+          },)                        
+          );
   }
   
 Future<void> showEditDialogue(NoteModel note,String title,String desc){
@@ -151,11 +158,6 @@ Future<void> showEditDialogue(NoteModel note,String title,String desc){
                  onTap: (){
             // controller.updateNote(note, title, desc, context);
                controller.updateNote(note, titleController.text.toString(), descController.text.toString(), context);
-             
-            
-          
-
-
           },
                    child: Container(
                       height:55,
